@@ -11,7 +11,7 @@ public class Presentacion {
     private static Scanner teclado = new Scanner(System.in);
     private static int opcionElegida;
     private static ArrayList<Pelicula> listaPeliculas = new ArrayList<>();
-    static String rutaArchivo = "C:\\Users\\chris\\intellij-workspace\\CatalogoDePeliculas\\src\\peliculas.txt";
+    static String rutaArchivo = "C:\\Users\\chris\\intellij-workspace\\CatalogoDePeliculas\\src\\resources\\peliculas.txt";
 
     public static void main(String[] args) {
 
