@@ -31,7 +31,6 @@ public class Presentacion {
         } catch (Exception e) {
             System.out.println("El carácter introducido no es un número, vuelva a intentarlo...");
             System.exit(0);
-//			main(args); --------------> Intento de que no pare la app y requiera de nuevo la información
         }
     }
 
@@ -71,7 +70,7 @@ public class Presentacion {
     private static void crearPelicula() {
 
         System.out.println("Escribe el nombre de la película que deseas ingresar = ");
-        String nombre = teclado.next(); //-------------> A pesar de poner nextLine, no me deja poner la pelicula con espacios.
+        String nombre = teclado.next();
         Pelicula esNombreDisponible = compararPeliculas(nombre);
 
         if (esNombreDisponible != null) {
@@ -92,20 +91,8 @@ public class Presentacion {
         try {
 
             pw = new PrintWriter(new FileWriter(archivoPeliculas, true));
-//			pw = new PrintWriter(new FileWriter(new File(rutaArchivo),true));   ->    También lo puedo poner así
-
             pw.println(pelicula.getNombre());
-//--------------------------------------------------- Así las estoy escribiendo en archivo todas de cada vez
-//			for (Pelicula i : listaPeliculas) {
-//				pw.println(i.getNombre());
-//			}
-//---------------------------------------------------
-//--------------------------------------------------- La misma manera que la anterior pero diferente escrito
-//			int i;
-//			for(i=0; i<listaPeliculas.size(); i++) {
-//				pw.println(listaPeliculas.get(i));
-//			}
-//----------------------------------------------------
+
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -132,8 +119,6 @@ public class Presentacion {
 
             File nuevoArchivo = new File(rutaArchivo);
             br = new BufferedReader(new FileReader(nuevoArchivo));
-//			br = new BufferedReader(new FileReader(new File(rutaArchivo)));  -------> También lo puedo poner así
-
             String linea = br.readLine();
 
             if (linea != null) {
@@ -146,14 +131,6 @@ public class Presentacion {
                 Pelicula nuevaPelicula = new Pelicula(linea);
                 listaPeliculas.add(nuevaPelicula);
                 linea = br.readLine();
-//----------------------------------------------------------------   Me muestra las películas que hay guardadas	separadas por contador
-//				int contador = 1;
-//				System.out.println(contador + "." + nuevaPelicula.toString() + "\n");
-//				contador +=1;
-//----------------------------------------------------------------
-//----------------------------------------------------------------   Me muestra las peliculas que hay guardadas
-//				System.out.println(nuevaPelicula.getNombre());
-//----------------------------------------------------------------
             }
 
         } catch (Exception e) {
@@ -178,11 +155,7 @@ public class Presentacion {
             System.out.println("\n*** Listado de películas guardadas *** \n");
             listaPeliculas.forEach((pelicula) -> System.out.println(pelicula.getNombre()));
             System.out.println();
-//---------------------------------------------------------------------------------------------  También lo puedo escribir así
-//			for(Pelicula pelicula : listaPeliculas){
-//				System.out.println(pelicula.getNombre());
-//			}
-//---------------------------------------------------------------------------------------------
+
         } else {
             System.out.println("\nNo hay ninguna película guardada en el sistema, por favor introduzca una....\n");
         }
@@ -191,12 +164,11 @@ public class Presentacion {
 
     private static Pelicula compararPeliculas(String nombre) {
 
-        Pelicula peliculaEncontrada = null; // ---------------> null (variable que referencia a un objeto se encuentra
-                                            //                        sin objeto)
+        Pelicula peliculaEncontrada = null;
         for (Pelicula pelicula : listaPeliculas) {
-            if (pelicula.getNombre().equalsIgnoreCase(nombre)) { // equalsIsIgnoreCase -> No compara de manera absoluta
-                peliculaEncontrada = pelicula;                   // es más flexible en el uso de mayúsculas y minúsculas
-            }                                                    // si utilizara el operador == compararia sus referencias
+            if (pelicula.getNombre().equalsIgnoreCase(nombre)) {
+                peliculaEncontrada = pelicula;
+            }
         }
         return peliculaEncontrada;
     }
@@ -204,8 +176,8 @@ public class Presentacion {
     private static void buscarPelicula() {
 
         System.out.println("Introduce el nombre de la película que quieres buscar = ");
-        String nombre = teclado.next();  //------------------------------ Aquí si creo una pelicula con espacios seguramente
-                                         //                               lo tenga que cambiar a nextline
+        String nombre = teclado.next();
+
         Pelicula peliculaBuscada = compararPeliculas(nombre);
         if (peliculaBuscada == null) {
             System.out.println("La película que estás buscando no se ha encontrado...");
