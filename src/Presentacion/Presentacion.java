@@ -218,6 +218,9 @@ public class Presentacion {
 //                    System.out.println("Se ha encontrado la película " + peliculaBuscada.getNombre() + " en la linea " + (i+1) + " \n");
 //                }
 //            }
+
+            //Puedo ponerlo así también
+
             Pelicula nombrePeli = listaPeliculas.stream().filter(p -> p.getNombre().equals(nombre)).findFirst().orElseThrow();
             System.out.println("Se ha encontrado la película " + nombrePeli.getNombre() + " en la linea " + (listaPeliculas.indexOf(nombrePeli)+1)  + " \n");
         }
