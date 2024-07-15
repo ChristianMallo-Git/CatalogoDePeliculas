@@ -18,21 +18,22 @@ public class Presentacion {
         cargarPeliculasCreadas();
 
         System.out.println("Bienvenido a la app de Registro de películas \n");
-
-        try {
             do {
                 System.out.println("**** Catálogo de películas ****");
                 mostrarMenu();
                 System.out.println("¿Qué desea hacer ? = ");
-                opcionElegida = teclado.nextInt();
+                try {
+
+                    opcionElegida = teclado.nextInt();
+                } catch (Exception e) {
+                    System.out.println("El carácter introducido no es un número, vuelva a intentarlo...");
+                    System.exit(0);
+    //			main(args); --------------> Intento de que no pare la app y requiera de nuevo la información
+                }
                 System.out.println("\nHa seleccionado la opción " + opcionElegida + "\n");
                 gestionarCasuistica(opcionElegida);
             } while (opcionElegida >= 1 && opcionElegida < 5);
-        } catch (Exception e) {
-            System.out.println("El carácter introducido no es un número, vuelva a intentarlo...");
-            System.exit(0);
-//			main(args); --------------> Intento de que no pare la app y requiera de nuevo la información
-        }
+
     }
 
     private static void mostrarMenu() {
@@ -69,9 +70,7 @@ public class Presentacion {
     }
 
     private static void crearPelicula() {
-
-        System.out.println("Escribe el nombre de la película que deseas ingresar = ");
-        String nombre = teclado.next(); //-------------> A pesar de poner nextLine, no me deja poner la pelicula con espacios.
+        String nombre = pedirNombrePelicula();
         Pelicula esNombreDisponible = compararPeliculas(nombre);
 
         if (esNombreDisponible != null) {
@@ -81,7 +80,11 @@ public class Presentacion {
             listaPeliculas.add(nuevapelicula);
             guardarPelicula(nuevapelicula);
         }
+    }
 
+    private static String pedirNombrePelicula() {
+        System.out.println("Escribe el nombre de la película que deseas ingresar = ");
+        return teclado.next(".*"); //-------------> A pesar de poner nextLine, no me deja poner la pelicula con espacios.
     }
 
     private static void guardarPelicula(Pelicula pelicula) {
@@ -210,11 +213,13 @@ public class Presentacion {
         if (peliculaBuscada == null) {
             System.out.println("La película que estás buscando no se ha encontrado...");
         } else {
-            for(int i=0; i<listaPeliculas.size(); i++){
-                if(listaPeliculas.get(i) == peliculaBuscada){
-                    System.out.println("Se ha encontrado la película " + peliculaBuscada.getNombre() + " en la linea " + (i+1) + " \n");
-                }
-            }
+//            for(int i=0; i<listaPeliculas.size(); i++){
+//                if(listaPeliculas.get(i) == peliculaBuscada){
+//                    System.out.println("Se ha encontrado la película " + peliculaBuscada.getNombre() + " en la linea " + (i+1) + " \n");
+//                }
+//            }
+            Pelicula nombrePeli = listaPeliculas.stream().filter(p -> p.getNombre().equals(nombre)).findFirst().orElseThrow();
+            System.out.println("Se ha encontrado la película " + nombrePeli.getNombre() + " en la linea " + (listaPeliculas.indexOf(nombrePeli)+1)  + " \n");
         }
     }
 
